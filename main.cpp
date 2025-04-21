@@ -14,6 +14,7 @@ typedef struct Node {
     string data;
     Node* next;
 } node;
+// typedef struct Node node;
 
 class LinkedList {
 private:
@@ -198,5 +199,3 @@ int main() {
 
     return 0;
 }
-
-// halo
