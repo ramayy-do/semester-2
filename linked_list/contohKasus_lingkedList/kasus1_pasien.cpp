@@ -47,12 +47,12 @@ class antrian {
             temp->next = newNode;
         }
         size++;
-        cout << "Pasien " << value << "' berhasil ditambahkan ke antrian\n";
+        cout << "[+] Pasien " << value << " berhasil ditambahkan ke antrian\n";
     }
 
     void deleteFirst() {
         if (patient == nullptr) {
-            cout << "List kosong.\n";
+            cout << "Antrian kosong. Tidak ada pasien yang bisa dipanggil.\n";
             return;
         }
 
@@ -60,7 +60,7 @@ class antrian {
         patient = patient->next;
         delete temp;
         size--;
-        cout << "Pasien telah diperiksa";
+        cout << "Pasien" << temp->data << " telah diperiksa.\n";
     }
 
     void searchData(string target) {
@@ -85,21 +85,66 @@ class antrian {
 
     void printList() {
         if (patient == nullptr) {
-            cout << "Data kosong.\n";
+            cout << "Antrian kosong.\n";
             return;
         }
 
         node* temp = patient;
         int index = 1;
-        cout << "\nDaftar Antrian\n";
+        cout << endl;
+        cout << "----------------------------------------\n";
+        cout << "         DAFTAR ANTRIAN PASIEN\n";
+        cout << "----------------------------------------\n";
         while (temp != nullptr) {
-            cout << index++ << ". " << temp->data << " (alamat: " << temp << ")\n";
+            cout << index++ << ". " << temp->data << " (alamat node: " << temp << ")\n";
             temp = temp->next;
         }
+        cout << "----------------------------------------\n";
     }
 };
 
 int main () {
+    antrian klinik;
+    int choice;
+    string name;
+
+    do {
+        cout << "\n=== SISTEM ANTRIAN KLINIK ===\n";
+        cout << "1. Tambah Pasien ke Antrian\n";
+        cout << "2. Panggil Pasien (Hapus dari Antrian)\n";
+        cout << "3. Tampilkan Seluruh Antrian\n";
+        cout << "4. Cari Pasien berdasarkan Nama\n";
+        cout << "5. Keluar\n";
+        cout << "Pilih menu [1-5]: ";
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice) {
+            case 1:
+                cout << "Masukkan nama pasien: ";
+                getline(cin, name);
+                klinik.insertLast(name);
+                break;
+            case 2:
+                klinik.deleteFirst();
+                break;
+            case 3:
+                klinik.printList();
+                break;
+            case 4:
+                cout << "Masukkan nama yang ingin dicari: ";
+                getline(cin, name);
+                klinik.searchData(name);
+                break;
+            case 5:
+                cout << "Terima kasih telah menggunakan sistem antrian.\n";
+                break;
+            default:
+                cout << "choice tidak valid. Silakan pilih 1-5.\n";
+        }
+    } while (choice != 5);
+
+    return 0;
 }
 
 
