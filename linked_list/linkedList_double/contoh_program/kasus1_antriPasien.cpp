@@ -1,5 +1,4 @@
 /*
-Program antrian pasien:
 1. Tambah Pasien ke Antrian (enqueue)
    Menambahkan pasien ke akhir antrian.
    insert last => (add rama, add roni, add wilma) rama -> roni -> wilma
@@ -19,85 +18,100 @@ Program antrian pasien:
 #include <iostream>
 using namespace std;
 
-struct node {
+struct Node {
     string data;
-    node* next;
+    Node* next;
+    Node* prev;
 };
 
 class antrian {
     public:
-    node* head = nullptr;
+    Node* head = nullptr;
+    Node* tail = nullptr;
 
-    node* createNode(string value) {
-        node* newNode = new node;
+    // create new Node
+    Node* createNode(string value) {
+        Node* newNode = new Node;
         newNode->data = value;
         newNode->next = nullptr;
+        newNode->prev = nullptr;
         return newNode;
     }
 
-    void insertLast(string value) {
-        node* newNode = createNode(value);
-        if (head == nullptr) {
-            head = newNode;
-        } else {
-            node* temp = head;
-            while (temp->next != nullptr) {
-                temp = temp->next;
-            }
-            temp->next = newNode;
+    void printList() {
+        Node* current = head;
+        int index = 1;
+        cout << endl;
+        cout << "----------------------------------------" << endl;
+        cout << "         DAFTAR ANTRIAN PASIEN          " << endl;
+        cout << "----------------------------------------" << endl;
+        while (current != nullptr) {
+            cout << index++ << ". ";
+            cout << "Alamat: " << current << endl;
+            cout << "   Nilai: " << current->data << endl;
+            cout << "   Alamat prev: " << current->prev << endl;
+            cout << "   Alamat next: " << current->next << endl<<endl;
+            current = current->next;
         }
-        cout << "[+] Pasien " << value << " berhasil ditambahkan ke antrian\n";
+        cout << "---------------------------------------" <<endl;
+    }
+    
+    void insertLast(string value) {
+        Node* newNode = createNode(value);
+        if (head == nullptr) {
+            head = newNode; // jika linked list kosong
+        } else {
+            Node* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            // menghubungkan node baru dengan node sebelumnya (previous)
+            current->next = newNode;
+            newNode->prev = current;
+        }
+        cout << "[+] Pasien " << value << " berhasil ditambahkan ke antrian" << endl;
     }
 
     void deleteFirst() {
         if (head == nullptr) {
-            cout << "Antrian kosong. Tidak ada pasien yang bisa dipanggil.\n";
+            cout << "Antrian kosong. Tidak ada pasien yang bisa dipanggil" << endl;
             return;
         }
-
-        node* temp = head;
+        // Simpan alamat node yang akan dihapus
+        Node* temp = head;
+        // Ubah head menjadi node setelahnya
         head = head->next;
+        
+        // Jika linked list head tidak null atau ada isinya
+        if (head != nullptr) {
+            head->prev = nullptr;
+        }
+        cout << "Pasien dengan nama " << temp->data << " telah diperiksa" << endl;
+        // Hapus node pertama
         delete temp;
-        cout << "Pasien" << temp->data << " telah diperiksa.\n";
     }
 
     void searchData(string target) {
-        node* temp = head;
-        int potition = 1;
-        bool found = false; // found = ditemukan
+        Node* temp = head;
+        int position = 1;
     
+        cout << "----------------------------------------" << endl;
+        cout << "         HASIL PENCARIAN PASIEN         " << endl;
+        cout << "----------------------------------------" << endl;
+
         while (temp != nullptr) {
             if (temp->data == target) {
-                cout << "Data dengan nama \"" << target << "\" berada di urutan ke-" << potition << endl;
-                found = true;
-                break;
-            }
+                cout << "Pasien ditemukan di urutan ke- " << position << endl;
+                cout << "Alamat node     : " << temp << endl;
+                cout << "Nama pasien     : " << temp->data << endl;
+                cout << "Alamat prev     : " << temp->prev << endl;
+                cout << "Alamat next     : " << temp->next << endl;
+                cout << "----------------------------------------" << endl;
+                return;           }
             temp = temp->next;
-            potition++;
+            position++;
         }
-    
-        if (!found) {
-            cout << "Data dengan nama \"" << target << "\" tidak ditemukan." << endl;
-        }
-    }
-
-    void printList() {
-        if (head == nullptr) {
-            cout << "Antrian kosong.\n";
-            return;
-        }
-
-        node* temp = head;
-        int index = 1;
-        cout << endl;
-        cout << "----------------------------------------\n";
-        cout << "         DAFTAR ANTRIAN PASIEN\n";
-        cout << "----------------------------------------\n";
-        while (temp != nullptr) {
-            cout << index++ << ". " << temp->data << " (alamat node: " << temp << ")\n";
-            temp = temp->next;
-        }
-        cout << "----------------------------------------\n";
+        cout << "Data dengan nama " << target << " tidak ditemukan." << endl;
     }
 };
 
@@ -141,6 +155,9 @@ int main () {
                 cout << "choice tidak valid. Silakan pilih 1-5.\n";
         }
     } while (choice != 5);
-
 return 0;
 }
+
+
+
+
