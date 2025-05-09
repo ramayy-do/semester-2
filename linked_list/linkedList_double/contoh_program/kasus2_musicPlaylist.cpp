@@ -117,7 +117,7 @@ public:
     }
 
     //delete target
-    void deleteMusic (string target) {
+    void deleteTarget (string target) {
         Music* current = head;
 
         // mencari node yang sesuai target
@@ -187,7 +187,7 @@ int main () {
         case 2:
             cout << "Masukkan judul atau penyanyi yang ingin dihapus: ";
             getline(cin, title);
-            playlist.deleteMusic(title);
+            playlist.deleteTarget(title);
             break;
 
         case 3:
