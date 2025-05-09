@@ -1,3 +1,6 @@
+// create by: Rama Adhi Saputra
+// date: 2025-09-03
+
 /*
 1. Tambah Pasien ke Antrian (enqueue)
    Menambahkan pasien ke akhir antrian.
@@ -25,7 +28,7 @@ struct Node {
 };
 
 class antrian {
-    public:
+public:
     Node* head = nullptr;
     Node* tail = nullptr;
 
@@ -99,6 +102,11 @@ class antrian {
         cout << "         HASIL PENCARIAN PASIEN         " << endl;
         cout << "----------------------------------------" << endl;
 
+        if (temp == nullptr) {
+            cout << "Daftar pasien kosong.\n";
+            return;
+        }
+
         while (temp != nullptr) {
             if (temp->data == target) {
                 cout << "Pasien ditemukan di urutan ke- " << position << endl;
@@ -107,7 +115,8 @@ class antrian {
                 cout << "Alamat prev     : " << temp->prev << endl;
                 cout << "Alamat next     : " << temp->next << endl;
                 cout << "----------------------------------------" << endl;
-                return;           }
+                return;           
+            }
             temp = temp->next;
             position++;
         }
@@ -115,19 +124,23 @@ class antrian {
     }
 };
 
+void displayChoice () {
+    cout << "\n=== SISTEM ANTRIAN KLINIK ===\n";
+    cout << "1. Tambah Pasien ke Antrian\n";
+    cout << "2. Panggil Pasien (Hapus dari Antrian)\n";
+    cout << "3. Tampilkan Seluruh Antrian\n";
+    cout << "4. Cari Pasien berdasarkan Nama\n";
+    cout << "5. Keluar\n";
+    cout << "Pilih menu [1-5]: ";
+}
+
 int main () {
     antrian klinik;
     int choice;
     string name;
 
     do {
-        cout << "\n=== SISTEM ANTRIAN KLINIK ===\n";
-        cout << "1. Tambah Pasien ke Antrian\n";
-        cout << "2. Panggil Pasien (Hapus dari Antrian)\n";
-        cout << "3. Tampilkan Seluruh Antrian\n";
-        cout << "4. Cari Pasien berdasarkan Nama\n";
-        cout << "5. Keluar\n";
-        cout << "Pilih menu [1-5]: ";
+        displayChoice();
         cin >> choice;
         cin.ignore();
 
