@@ -1,7 +1,15 @@
 // create by: Rama Adhi Saputra
 // date: 2025-09-05
-
+// last update: 2025-09-05
 /*
+Fitur yang tersedia:
+1. Tambah Lagu
+2. Hapus Lagu
+3. Cari Lagu
+4. Tampilkan Semua Lagu
+
+==========================
+
 Program Playlist Music:
 1.  Tambah Lagu Baru ke playlist
     Tambahkan node ke akhir list (insertLast)
@@ -15,15 +23,8 @@ Program Playlist Music:
     Navigasi mundur pakai prev pointer 
 2.  Putar Lagu Berikutnya (next)
     Navigasi maju pakai next pointer
-
-==========================
-
-Lagu Berikutnya
-1. ➕ Tambah Lagu
-2. 🗑️ Hapus Lagu
-3. 🔍 Cari Lagu
-4. 📃 Tampilkan Semua Lagu
 */
+
 
 #include <iostream>
 using namespace std;
@@ -55,6 +56,10 @@ public:
 
     // Menampilkan isi playlist
     void printList() {
+        if (head == nullptr) {
+            cout << "\ndaftar playlist kosong.\n";
+            return;
+        }
         Music* current = head;
         int index = 1;
         cout << endl;
@@ -118,37 +123,39 @@ public:
 
     //delete target
     void deleteTarget (string target) {
-        Music* current = head;
-
-        // mencari node yang sesuai target
-        while (current != nullptr && current->title != target && current->singer != target) {
-        current = current->next;
-        }
+        Music* temp = head;
 
         // Jika node dengan nilai yang sesuai tidak ditemukan
-        if (current == nullptr) {
+        if (temp == nullptr) {
             cout << "lagu \"" << target << "\" tidak ditemukan" << endl;
             return;
         }
 
-        // Jika node yang dihapus adalah head
-        if (current == head) {
-            head = current->next;
-            if (head != nullptr)
-                head->prev = nullptr;
+        // mencari node yang sesuai target
+        while (temp != nullptr && temp->title != target && temp->singer != target) {
+        temp = temp->next;    
         }
-        // Jika node yang dihapus adalah tail
-        else if (current == tail) {
-            tail = current->prev;
-            if (tail != nullptr)
+
+        // Jika node yang dihapus adalah head
+        if (temp == head) {
+            head = temp->next;
+            if (head != nullptr) {
+                head->prev = nullptr;
+            }
+        }
+            // Jika node yang dihapus adalah tail
+        else if (temp == tail) {
+            tail = temp->prev;
+            if (tail != nullptr) {
                 tail->next = nullptr;
+            }
         }
         // Jika node di tengah
         else {
-            current->prev->next = current->next; 
-            current->next->prev = current->prev;
+            temp->prev->next = temp->next; 
+            temp->next->prev = temp->prev;
         }
-        delete current;
+        delete temp;
         cout << "Lagu \"" << target << "\" berhasil dihapus.\n";
         }
     };
