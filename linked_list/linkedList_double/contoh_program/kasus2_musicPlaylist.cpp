@@ -63,7 +63,7 @@ public:
         cout << "----------------------------------------" << endl;
         while (current != nullptr) {
             cout << index++;
-            cout << ". Judul     : " << current->title << endl;
+            cout << ". Judul    : " << current->title << endl;
             cout << "   Penyanyi : " << current->singer <<endl;
             cout << "----------------------------------------" << endl;
             current = current->next;
