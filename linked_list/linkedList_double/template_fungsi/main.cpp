@@ -9,7 +9,6 @@ struct Node {
     string data;
     Node* next;
     Node* prev;
-    Node* current;
 };
 
 class antrian {
@@ -92,6 +91,7 @@ public:
         if (head == nullptr) {  // Jika linked list kosong
             head = tail = current = newNode;  // node baru menjadi head
         } else {
+            Node* current = head;
             // Mencari posisi terakhir dalam linked list
             while (current->next != nullptr) {
                 current = current->next;
