@@ -15,6 +15,7 @@ class antrian {
 private:
     Node* head = nullptr;
     Node* tail = nullptr;
+    Node* current = nullptr;
 
 public:
     // create new Node
