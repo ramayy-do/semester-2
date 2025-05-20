@@ -1,5 +1,4 @@
 #include <iostream>
-
 using namespace std;
 
 // Struktur Node
@@ -31,25 +30,25 @@ void insertFirst(Node*& head, int data) {
 }
 
 // Fungsi untuk menyisipkan node setelah node dengan nilai tertentu dalam linked list
-void insertAfter(Node* head, int valueToInsertAfter, int data) {
+void insertBefore(Node* head, int valueToInsertBefore, int data) {
     // Mulai pencarian dari head
     Node* current = head;
     // Mencari node dengan nilai yang sesuai
-    while (current != nullptr && current->data != valueToInsertAfter) {
+    while (current != nullptr && current->data != valueToInsertBefore) {
         current = current->next;
     }
     // Jika node dengan nilai yang sesuai tidak ditemukan
     if (current == nullptr) {
-        cout << "Node dengan nilai " << valueToInsertAfter << " tidak ditemukan" << endl;
+        cout << "Node dengan nilai " << valueToInsertBefore << " tidak ditemukan" << endl;
         return;
     }
-    // Membuat node baru
+
     Node* newNode = createNode(data);
-    // Menyisipkan node baru setelah node dengan nilai yang sesuai
-    newNode->prev = current->prev; // Mengatur next dari node baru
-    newNode->next = current; // Mengatur prev dari node baru
-    current->prev = newNode; // Mengatur next dari node yang sebelumnya menunjuk ke node baru
-    // Mengatur prev dari node yang berada setelah node baru, jika ada
+    newNode->prev = current->prev; 
+    newNode->next = current; 
+    current->prev = newNode; 
+
+    // menghubungkan next dari node sebelum newNode
     if (newNode->next != nullptr) {
         newNode->prev->next = newNode;
     }
@@ -86,7 +85,7 @@ int main() {
     insertFirst(head, 2);
     displayList(head);
 
-    insertAfter(head, 4, 1);
+    insertBefore(head, 4, 1);
 
     // Menampilkan informasi tentang setiap node dalam linked list
     displayList(head);
