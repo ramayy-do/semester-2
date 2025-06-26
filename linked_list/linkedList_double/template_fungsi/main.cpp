@@ -62,6 +62,32 @@ public:
     }
 
     // Fungsi untuk menyisipkan node setelah node dengan nilai tertentu dalam linked list
+    void insertBefore(Node* head, int valueToInsertBefore, int data) {
+        // Mulai pencarian dari head
+        Node* current = head;
+        // Mencari node dengan nilai yang sesuai
+        while (current != nullptr && current->data != valueToInsertBefore) {
+            current = current->next;
+        }
+        // Jika node dengan nilai yang sesuai tidak ditemukan
+        if (current == nullptr) {
+            cout << "Node dengan nilai " << valueToInsertBefore << " tidak ditemukan" << endl;
+            return;
+        }
+    
+        Node* newNode = createNode(data);
+        newNode->prev = current->prev; 
+        newNode->next = current; 
+        current->prev = newNode; 
+    
+        // menghubungkan next dari node sebelum newNode
+        if (newNode->next != nullptr) {
+            newNode->prev->next = newNode;
+        }
+    }
+
+
+    // Fungsi untuk menyisipkan node setelah node dengan nilai tertentu dalam linked list
     void insertAfter(string valueToInsertAfter, string value) {
         // Mulai pencarian dari head
         Node* current = head;
