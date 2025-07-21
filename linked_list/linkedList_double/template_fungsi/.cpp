@@ -1,5 +1,6 @@
 // create by: Rama Adhi Saputra
 // date: 5-13-2025
+// berikut adalah kumpulan beberapa fungsi dari double linked list
 
 #include <iostream>
 using namespace std;
@@ -310,7 +311,3 @@ public:
 };
 return 0;
 }
-
-
-
-
