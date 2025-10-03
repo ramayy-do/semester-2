@@ -20,6 +20,7 @@
 */
 
 #include <iostream>
+#include <iomanip> // buat setw
 using namespace std;
 
 struct Node {
@@ -45,16 +46,16 @@ public:
     void printList() {
         Node* current = head;
         int index = 1;
+
         cout << endl;
         cout << "----------------------------------------" << endl;
         cout << "         DAFTAR ANTRIAN PASIEN          " << endl;
         cout << "----------------------------------------" << endl;
+        if (current == nullptr) {
+            cout << "Antrian kosong" << endl;
+        }
         while (current != nullptr) {
-            cout << index++ << ". ";
-            cout << "Alamat: " << current << endl;
-            cout << "   Nilai: " << current->data << endl;
-            cout << "   Alamat prev: " << current->prev << endl;
-            cout << "   Alamat next: " << current->next << endl<<endl;
+            cout << setw(2) << index++ << ". " << current->data <<endl;
             current = current->next;
         }
         cout << "---------------------------------------" <<endl;
@@ -69,16 +70,19 @@ public:
             while (current->next != nullptr) {
                 current = current->next;
             }
-            // menghubungkan node baru dengan node sebelumnya (previous)
+            // menghubungkan node baru dengan node sAebelumnya (previous)
             current->next = newNode;
             newNode->prev = current;
         }
-        cout << "[+] Pasien " << value << " berhasil ditambahkan ke antrian" << endl;
+        cout << endl;
+        cout << "[+] Pasien " << value << " berhasil ditambahkan ke antrian\n";
     }
 
     void deleteFirst() {
         if (head == nullptr) {
-            cout << "Antrian kosong. Tidak ada pasien yang bisa dipanggil" << endl;
+            cout << "---------------------------------------" <<endl;
+            cout << "Antrian kosong. Tidak ada pasien yang bisa dipanggil\n";
+            cout << "---------------------------------------" <<endl;
             return;
         }
         // Simpan alamat node yang akan dihapus
@@ -90,7 +94,9 @@ public:
         if (head != nullptr) {
             head->prev = nullptr;
         }
-        cout << "Pasien dengan nama " << temp->data << " telah diperiksa" << endl;
+        cout << "---------------------------------------" <<endl;
+        cout << "Pasien dengan nama " << temp->data << " telah diperiksa\n";
+        cout << "---------------------------------------" <<endl;
         // Hapus node pertama
         delete temp;
     }
@@ -99,23 +105,17 @@ public:
         Node* current = head;
         int position = 1;
     
+        cout << endl;
         cout << "----------------------------------------" << endl;
         cout << "         HASIL PENCARIAN PASIEN         " << endl;
         cout << "----------------------------------------" << endl;
-
         if (current == nullptr) {
             cout << "Daftar pasien kosong.\n";
             return;
         }
-
         while (current != nullptr) {
             if (current->data == target) {
-                cout << "Pasien ditemukan di urutan ke- " << position << endl;
-                cout << "Alamat node     : " << current << endl;
-                cout << "Nama pasien     : " << current->data << endl;
-                cout << "Alamat prev     : " << current->prev << endl;
-                cout << "Alamat next     : " << current->next << endl;
-                cout << "----------------------------------------" << endl;
+                cout << "Pasien \"" << target << "\" ditemukan di urutan ke-" << position << endl;                cout << "----------------------------------------" << endl;
                 return;           
             }
             current = current->next;
@@ -127,10 +127,10 @@ public:
 
 void displayChoice () {
     cout << "\n=== SISTEM ANTRIAN KLINIK ===\n";
-    cout << "1. Tambah Pasien ke Antrian\n";
-    cout << "2. Panggil Pasien (Hapus dari Antrian)\n";
-    cout << "3. Tampilkan Seluruh Antrian\n";
-    cout << "4. Cari Pasien berdasarkan Nama\n";
+    cout << "1. Tambah pasien ke antrian\n";
+    cout << "2. Panggil pasien (hapus dari antrian)\n";
+    cout << "3. Tampilkan seluruh sntrian\n";
+    cout << "4. Cari pasien berdasarkan nama\n";
     cout << "5. Keluar\n";
     cout << "Pilih menu [1-5]: ";
 }
