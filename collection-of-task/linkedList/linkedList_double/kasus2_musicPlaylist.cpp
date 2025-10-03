@@ -1,6 +1,6 @@
 // create by: Rama Adhi Saputra
-// date: 2025-09-05
-// last update: 2025-09-05
+// date: 2025-05-09
+// last update: 2025-10-03
 /*
 Fitur yang tersedia:
 1. Tambah Lagu
@@ -79,20 +79,14 @@ public:
     void insertLast(string title, string singer) {
         Music* newMusic = createMusic(title, singer);
         if (head == nullptr) {
-            head = newMusic; // Jika linked list kosong, node baru menjadi head
+            head = newMusic;
+            tail = newMusic; 
         } else {
-            Music* current = head;
-            // Mencari posisi terakhir dalam linked list
-            while (current->next != nullptr) {
-                current = current->next;
-            }
-            // Menyisipkan node baru setelah posisi terakhir
-            current->next = newMusic; // Mengatur next dari posisi terakhir menjadi node baru
-            newMusic->prev = current; // Mengatur prev dari node baru
-            // current -> new music
-            // current <- new music
-            cout << "[+] Lagu " << title << " berhasil ditambahkan ke playlist" << endl;
+            tail->next = newMusic;
+            newMusic->prev = tail;
+            tail = newMusic;  
         }
+        cout << "[+] Lagu \"" << title << "\" berhasil ditambahkan ke playlist" << endl;
     }
 
     //fungsi untuk mencari lagu yang dituju
@@ -125,15 +119,20 @@ public:
     void deleteTarget (string target) {
         Music* temp = head;
 
+        if (temp == nullptr) {
+            cout << "Daftar lagu kosong.\n";
+            return;
+        }
+        
+        // mencari node yang sesuai target
+        while (temp != nullptr && temp->title != target && temp->singer != target) {
+            temp = temp->next;    // gw tambahin || - 10/03/2025
+        }
+        
         // Jika node dengan nilai yang sesuai tidak ditemukan
         if (temp == nullptr) {
             cout << "lagu \"" << target << "\" tidak ditemukan" << endl;
             return;
-        }
-
-        // mencari node yang sesuai target
-        while (temp != nullptr && temp->title != target && temp->singer != target) {
-        temp = temp->next;    
         }
 
         // Jika node yang dihapus adalah head
@@ -141,6 +140,9 @@ public:
             head = temp->next;
             if (head != nullptr) {
                 head->prev = nullptr;
+            }
+            else {
+                tail = nullptr;
             }
         }
             // Jika node yang dihapus adalah tail
